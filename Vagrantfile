@@ -33,8 +33,8 @@ Vagrant.configure("2") do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
 
   config.vm.define :zk1 do |local_config|
-      local_config.vm.box = "ubuntu_12_04_64"
-      local_config.vm.box_url="http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box"
+      local_config.vm.box = "centos64_x86_64_pp"
+      #local_config.vm.box_url="http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box"
 
       local_config.vm.network :private_network, ip: "192.168.33.10"
       local_config.vm.provider :virtualbox  do |vb|
@@ -65,7 +65,7 @@ Vagrant.configure("2") do |config|
   #   chef.cookbooks_path = "../my-recipes/cookbooks"
   #   chef.roles_path = "../my-recipes/roles"
   #   chef.data_bags_path = "../my-recipes/data_bags"
-     chef.add_recipe "apt"
+     chef.add_recipe "yum::epel"
      chef.add_recipe "zookeeper"
   #   chef.add_role "web"
   #
