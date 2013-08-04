@@ -1,12 +1,11 @@
 #!/usr/bin/env ruby
 #^syntax detection
+#site 'http://community.opscode.com/api/v1'
 
-site 'http://community.opscode.com/api/v1'
 
-
-cookbook 'yum'
-cookbook 'apt'
-cookbook 'zookeeper'
+cookbook "zookeeper",
+  :git => "https://github.com/infochimps-labs/ironfan-pantry/tree/master/cookbooks"
+  #:ref => "v0.7.1"
 
 # cookbook 'apache2', '>= 1.0.0'
 

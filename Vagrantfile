@@ -31,53 +31,52 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-
   config.vm.define :zk1 do |local_config|
       local_config.vm.box = "centos64_x86_64_pp"
+      config.vm.hostname = "zookeeper1"
+      #local_config.vm.box = "centos64_x86_64_pp"
       #local_config.vm.box_url="http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box"
 
-      local_config.vm.network :private_network, ip: "192.168.33.10"
-      local_config.vm.provider :virtualbox  do |vb|
-
-      end     
-  end
-  config.vm.define :zk2 do |local_config|
-      local_config.vm.box = "ubuntu_12_04_64"
-      local_config.vm.box_url="http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box"
       local_config.vm.network :private_network, ip: "192.168.33.11"
       local_config.vm.provider :virtualbox  do |vb|
 
       end     
+      config.vm.provision :puppet do |puppet|
+        puppet.options = "--verbose --debug"
+        puppet.manifests_path = "manifests"
+        puppet.module_path = "modules"
+      end
   end
-  config.vm.define :zk3 do |local_config|
-      local_config.vm.box = "ubuntu_12_04_64"
-      local_config.vm.box_url="http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box"
+ config.vm.define :zk2 do |local_config|
+      local_config.vm.box = "centos64_x86_64_pp"
+      config.vm.hostname = "zookeeper2"
+      #local_config.vm.box = "centos64_x86_64_pp"
+      #local_config.vm.box_url="http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box"
+
       local_config.vm.network :private_network, ip: "192.168.33.12"
       local_config.vm.provider :virtualbox  do |vb|
 
       end     
+      config.vm.provision :puppet do |puppet|
+        puppet.options = "--verbose --debug"
+        puppet.manifests_path = "manifests"
+        puppet.module_path = "modules"
+      end
   end
-  # Enable provisioning with chef solo, specifying a cookbooks path, roles
-  # path, and data_bags path (all relative to this Vagrantfile), and adding
-  # some recipes and/or roles.
-  #
-   config.vm.provision :chef_solo do |chef|
-  #   chef.cookbooks_path = "../my-recipes/cookbooks"
-  #   chef.roles_path = "../my-recipes/roles"
-  #   chef.data_bags_path = "../my-recipes/data_bags"
-     chef.add_recipe "yum::epel"
-     chef.add_recipe "zookeeper"
-  #   chef.add_role "web"
-  #
-  #   # You may also specify custom JSON attributes:
-     chef.json = { 
-        :exhibitor => {
-          :opts => {
-            :nodemodification => "true",
-            :zkconfigconnect => "192.168.33.10:2181,192.168.33.11:2181,192.168.33.12:2181"
-          }
-        }
-     }
-   end
+  config.vm.define :zk3 do |local_config|
+      local_config.vm.box = "centos64_x86_64_pp"
+      config.vm.hostname = "zookeeper3"
+      #local_config.vm.box = "centos64_x86_64_pp"
+      #local_config.vm.box_url="http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box"
 
+      local_config.vm.network :private_network, ip: "192.168.33.13"
+      local_config.vm.provider :virtualbox  do |vb|
+
+      end     
+      config.vm.provision :puppet do |puppet|
+        puppet.options = "--verbose --debug"
+        puppet.manifests_path = "manifests"
+        puppet.module_path = "modules"
+      end
+  end
 end
